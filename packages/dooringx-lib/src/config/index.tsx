@@ -332,10 +332,10 @@ export function userConfigMerge(a: Partial<InitConfig>, b?: Partial<InitConfig>)
  */
 export class UserConfig {
 	public initConfig: InitConfig;
-	public store = new Store();
-	public componentRegister = new ComponentRegister();
-	public formRegister = new FormComponentRegister();
-	public storeChanger = new StoreChanger();
+	public store = new Store(); // 得到 Store 实例，类似于 redux
+	public componentRegister = new ComponentRegister(); // 得到 ComponentRegister 实例
+	public formRegister = new FormComponentRegister(); // 得到 FormComponentRegister 的实例
+	public storeChanger = new StoreChanger(); // 得到 StoreChanger 实例
 	public componentCache = {};
 	public asyncComponentUrlMap = {} as AsyncCacheComponentType;
 	public marklineConfig = marklineConfig;
@@ -363,50 +363,60 @@ export class UserConfig {
 	public leftForceUpdate = () => {};
 	public customMap: Record<string, any> = {};
 	constructor(initConfig?: Partial<InitConfig>) {
-		const mergeConfig = userConfigMerge(defaultConfig, initConfig);
-		this.initConfig = mergeConfig;
-		this.commanderRegister = new CommanderWrapper(this.store, {}, this);
-		this.eventCenter = new EventCenter({}, mergeConfig.initFunctionMap);
-		this.dataCenter = new DataCenter(mergeConfig.initDataCenterMap);
+		const mergeConfig = userConfigMerge(defaultConfig, initConfig); // 合并配置项
+		this.initConfig = mergeConfig; // 初始配置
+		this.commanderRegister = new CommanderWrapper(this.store, {}, this); // 得到 CommanderWrapper 实例
+    // initFunctionMap 默认有「打开弹窗函数」、「关闭弹窗函数」
+		this.eventCenter = new EventCenter({}, mergeConfig.initFunctionMap); // 得到 EventCenter 实例，其中包含 functionCenter
+		this.dataCenter = new DataCenter(mergeConfig.initDataCenterMap); // 得到 DataCenter 实例，用来管理页面数据，包括全局数据
 		this.init();
 		// 右侧配置项注册 初始注册组件暂时固定
 	}
 
+  // 左、右、画布组件注册、事件注册
 	toRegist() {
-		const modules = this.initConfig.initFormComponents;
-		formComponentRegisterFn(this.formRegister, modules);
+		const modules = this.initConfig.initFormComponents; // 右侧组件导入，plugin/formComponents 目录下模块集合，格式：{ 'actionButton': export default 的模块 }
+		formComponentRegisterFn(this.formRegister, modules); // 同步注册模块，将 modules 注册到 this.formRegister 的 formMap 属性中, 格式：formMap = { 'actionButton': export default 的模块 }
 
+    // 如果要同步导入组件，则需要将组件放入配置项的initComponentCache中，这样在载入时便会注册进componentRegister里
 		const cache = this.initConfig.initComponentCache;
 		this.componentCache = cache;
-		// 拿到组件缓存后，先同步加载map上组件
+		// 拿到组件缓存后，注册到 this.componentRegister 的 componentMap 属性中
 		Object.values(cache).forEach((v) => {
 			if ((v as CacheComponentValueType).component) {
 				this.registComponent((v as CacheComponentValueType).component!);
 			}
 		});
-		// 异步组件注册地址
+		// 左侧组件，异步组件注册地址
 		this.initConfig.leftAllRegistMap.forEach((v) => {
 			if (v.urlFn) {
 				//@ts-ignore
-				this.asyncComponentUrlMap[v.component] = v.urlFn;
+				this.asyncComponentUrlMap[v.component] = v.urlFn; // v.urlFn 存储在 this.asyncComponentUrlMap 中，格式：{ [组件名]: urlFn }
 			}
 		});
-		// 注册画布上组件
+		// 注册画布上组件，最初 this.store.getData() 为 initStoreData，init() 中上面处理过，block 为 []
 		this.store.getData().block.forEach((v) => {
 			this.asyncRegistComponent(v.name);
 		});
 
 		// 注册data
-		this.dataCenter = new DataCenter(this.initConfig.initDataCenterMap);
-		//数据需要加上store上的
+		this.dataCenter = new DataCenter(this.initConfig.initDataCenterMap); // 得到 DataCenter 实例
+		
+    //数据需要加上store上的
+    // 需要判断是否在弹窗状态。如果在弹窗状态，数据以 storeChanger 为准，否则就以store为准
+    // 最初 this.store.getData() 为 initStoreData，将 this.dataCenter 的 dataMap 设置为 store 的 dataSource
 		this.dataCenter.initAddToDataMap(this.store.getData(), this.storeChanger);
-		// 修改事件与数据初始
+		
+    // 修改事件与数据初始
+    // constructor 中处理过了，这里有处理一遍，目前看没变化
 		this.eventCenter = new EventCenter({}, this.initConfig.initFunctionMap);
-		// 注册画布事件
+		
+    // 注册画布事件
 		this.eventCenter.syncEventMap(this.store.getData(), this.storeChanger);
 	}
 
 	init() {
+    // 在 store 中注册初始 store 数据，将 storeDataList 设置为 initStoreData  
 		this.store.resetToInitData(deepCopy(this.initConfig.initStoreData), true);
 		this.toRegist();
 	}
@@ -561,7 +571,7 @@ export class UserConfig {
 	}
 	/**
 	 *
-	 * 同步注册组件，不会检测缓存是否存在
+	 * 同步注册组件
 	 * @param {ComponentItemFactory} item
 	 * @memberof UserConfig
 	 */
@@ -570,8 +580,8 @@ export class UserConfig {
 	}
 	/**
 	 *
-	 * 异步注册组件，会判定缓存是否存在
-	 * @param {string} name
+	 * 异步注册组件，会判定缓存是否存在，缓存中不存在，加入缓存
+	 * @param {string} name 组件名
 	 * @memberof UserConfig
 	 */
 	async asyncRegistComponent(name: string) {

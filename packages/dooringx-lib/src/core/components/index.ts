@@ -58,10 +58,12 @@ class ComponentRegister {
 			// console.error(`${item.name} component has registed`);
 			return;
 		}
+
+    // 将 initComponentCache 中的组件存入componentMap，格式： { [name]: component }
 		this.componentMap[item.name] = item;
-		this.componentList.push(item);
-		this.emit();
-		item.init();
+		this.componentList.push(item); // 将 component 存入 componentList
+		this.emit(); // 触发监听函数
+		item.init(); // 初始化组件，目前没做处理
 	}
 
 	unRegister(name: string) {

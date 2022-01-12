@@ -57,7 +57,9 @@ export class FunctionCenter {
 	}
 
 	init(initConfig: FunctionCenterType) {
-		this.reset();
+		this.reset(); // 清空 funcitonMap、configMap、nameMap
+
+    // this.funcitonMap 格式： { '打开弹窗函数': fn, ... }；
 		this.funcitonMap = Object.keys(initConfig).reduce<Record<string, FunctionCenterFunction>>(
 			(prev, next) => {
 				prev[next] = initConfig[next].fn;
@@ -65,6 +67,8 @@ export class FunctionCenter {
 			},
 			{}
 		);
+
+    // this.configMap 格式： { '打开弹窗函数': config, ... }；
 		this.configMap = Object.keys(initConfig).reduce<Record<string, FunctionConfigType>>(
 			(prev, next) => {
 				prev[next] = initConfig[next].config;
@@ -72,6 +76,8 @@ export class FunctionCenter {
 			},
 			{}
 		);
+
+    // this.nameMap 格式： { '打开弹窗函数': name, ... }；
 		this.nameMap = Object.keys(initConfig).reduce<Record<string, string>>((prev, next) => {
 			prev[next] = initConfig[next].name;
 			return prev;

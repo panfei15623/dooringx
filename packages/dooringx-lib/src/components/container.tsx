@@ -1,3 +1,6 @@
+/**
+ * 画布组件
+ */
 import { containerDragResolve } from '../core/crossDrag';
 import { containerFocusRemove } from '../core/focusHandler';
 import { innerContainerDrag } from '../core/innerDrag';

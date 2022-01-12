@@ -9,7 +9,7 @@ import { IStoreData } from './storetype';
 import { storeChangerState } from '../storeChanger/state';
 
 export const initialData: IStoreData = {
-	container: {
+	container: { // 画布的尺寸
 		width: 375,
 		height: 667,
 	},
@@ -57,7 +57,7 @@ class Store {
 		if (storeChangerState.modalEditName !== '' && check) {
 			storeChangerState.modalEditName = '';
 		}
-		this.emit();
+		this.emit(); // 执行监听函数
 	}
 	/**
 	 *

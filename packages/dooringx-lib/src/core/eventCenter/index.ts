@@ -43,7 +43,7 @@ export class EventCenter {
 	 */
 	public functionCenter: FunctionCenter;
 	constructor(public eventMap: EventCenterMapType = {}, configFunction?: FunctionCenterType) {
-		this.functionCenter = new FunctionCenter(configFunction);
+		this.functionCenter = new FunctionCenter(configFunction); // 得到 FunctionCenter 实例，将配置中的 initFunctionMap 格式化到FunctionCenter 实例的 funcitonMap、configMap、nameMap 属性
 	}
 
 	getFunctionCenter() {
@@ -59,7 +59,7 @@ export class EventCenter {
 
 	/**
 	 *
-	 * 重置map进行收集事件 主要就是收集eventMap字段
+	 * 重置 eventMap 进行收集事件 主要就是收集 eventMap 字段
 	 * 这个应该优化在换store情况下。
 	 * @param {IStoreData} data
 	 * @memberof EventCenter
@@ -89,11 +89,11 @@ export class EventCenter {
 			}
 		} else {
 			data.block.forEach((v) => {
-				this.eventMap = Object.assign(this.eventMap, v.eventMap);
+				this.eventMap = Object.assign(this.eventMap, v.eventMap); // 合并 block 中 eventMap
 			});
 			Object.keys(data.modalMap).forEach((v) => {
 				data.modalMap[v].block.forEach((k) => {
-					this.eventMap = Object.assign(this.eventMap, k.eventMap);
+					this.eventMap = Object.assign(this.eventMap, k.eventMap); // 合并  modalMap 中 block 中 eventMap
 				});
 			});
 		}

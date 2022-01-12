@@ -1,4 +1,5 @@
 /*
+ * 画布外层
  * @Author: yehuozhili
  * @Date: 2021-03-14 04:29:09
  * @LastEditors: yehuozhili
@@ -20,6 +21,7 @@ export interface ContainerWrapperProps extends AllHTMLAttributes<HTMLDivElement>
 	style?: CSSProperties;
 }
 
+// 画布
 function ContainerWrapper(props: PropsWithChildren<ContainerWrapperProps>) {
 	const { children, style, classNames, config, ...rest } = props;
 	const ref = useRef<HTMLDivElement>(null);

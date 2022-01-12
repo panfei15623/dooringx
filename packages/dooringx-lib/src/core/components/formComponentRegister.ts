@@ -12,11 +12,18 @@ export interface ContainerConfigItem {
 	type: string;
 	option: CreateOptionsRes<any, any>;
 }
+
+/**
+ * formComponentRegisterFn 将 modules 注册到 formMap 中
+ * @param formComponent 
+ * @param modules 
+ */
 export const formComponentRegisterFn = (
 	formComponent: FormComponentRegister,
 	modules: Record<string, FunctionComponent<any> | ComponentClass<any, any>>
 ) => {
 	Object.keys(modules).forEach((v) => {
+    // v-文件名，modules[v]-导出的模块
 		formComponent.register(v, modules[v]);
 	});
 };

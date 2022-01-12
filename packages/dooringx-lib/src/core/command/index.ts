@@ -20,27 +20,30 @@ class CommanderWrapper {
 		return this.commandMap;
 	}
 	register(item: CommanderItem) {
-		item.init();
+		item.init(); // 暂时什么都没做
 		if (this.commandMap[item.name]) {
 			// console.error(`${item.name} commander has registed`);
 			return;
 		}
-		this.commandMap[item.name] = item;
+		this.commandMap[item.name] = item; // 存储在 commandMap 中
 		//注册快捷键，快捷键执行调用excute
 		const remove = this.registerKeyBoard(item);
-		//改写销毁方法
+		
+    //改写销毁方法
 		const origindestroy = item.destroy;
 		const newdestroy = () => {
-			remove();
+			remove(); // 销毁快捷键监听事件
 			origindestroy();
 		};
 		item.destroy = newdestroy;
 	}
 
 	registerKeyBoard(current: CommanderItem) {
+    // 没设置快捷键，不做任何操作
 		if (current.keyboard.length === 0) {
 			return () => {};
 		}
+
 		const onKeydown = (e: KeyboardEvent) => {
 			if (document.activeElement !== document.body && e.target !== document.body) {
 				return;

@@ -79,6 +79,7 @@ function resolveDrop(
 	store.setData({ ...data });
 }
 
+// 被拖拽元素事件
 export const dragEventResolve = function (item: LeftRegistComponentMapItem, config: UserConfig) {
 	return {
 		draggable: true,
@@ -99,6 +100,7 @@ export const dragEventResolve = function (item: LeftRegistComponentMapItem, conf
 	};
 };
 
+// 目标元素事件
 export const containerDragResolve = (config: UserConfig) => {
 	return {
 		onDragStart: () => {},
@@ -106,7 +108,7 @@ export const containerDragResolve = (config: UserConfig) => {
 			e.preventDefault();
 		},
 		onDrop: (e: DragEvent<HTMLDivElement>) => {
-			const offsetX = Math.round(e.nativeEvent.offsetX);
+			const offsetX = Math.round(e.nativeEvent.offsetX); // e.nativeEvent 为底层浏览器事件, e 为 react 中合成事件
 			const offestY = Math.round(e.nativeEvent.offsetY);
 			//drop后修改store，
 			if (currentDrag) {

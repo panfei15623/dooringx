@@ -18,18 +18,21 @@ export function useStoreState(
 ) {
 	const store = config.getStore();
 	const [state, setState] = useState(store.getData());
-	const forceUpdate = useState(0)[1];
+	const forceUpdate = useState(0)[1]; // 获取的 setState
 	useEffect(() => {
+    // 注册监听函数
 		const unRegister = store.subscribe(() => {
-			const data = store.getData();
+			const data = store.getData(); // 获取当前 store
 			setState(data);
+
+      // 重新收集 eventMap
 			config.getEventCenter().syncEventMap(store.getData(), config.getStoreChanger());
-			extraFn();
+			extraFn(); // 将 data 存在 localStorage 中，供 PREVIEWSTATE 使用
 		});
 		store.setForceUpdate(() => forceUpdate((v) => v + 1));
-		const commandModules = config.getConfig().initCommandModule;
-		const commander = config.getCommanderRegister();
-		registCommandFn(commandModules, commander);
+		const commandModules = config.getConfig().initCommandModule; // 获取 plugin/commands 目录下的模块
+		const commander = config.getCommanderRegister(); // 得到 config.commanderRegister
+		registCommandFn(commandModules, commander); // 注册快捷键
 		return () => {
 			unRegister();
 			unRegistCommandFn(commandModules, commander);

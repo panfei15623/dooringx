@@ -88,7 +88,7 @@ export class DataCenter {
 				this.dataMap = currentData.dataSource;
 			}
 		} else {
-			this.dataMap = data.dataSource;
+			this.dataMap = data.dataSource; // 获取 store 的 dataSource
 		}
 	}
 
