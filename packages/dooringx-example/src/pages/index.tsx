@@ -35,21 +35,27 @@ const footerConfig = function () {
 };
 
 export default function IndexPage() {
-	const config = useContext(configContext);
+	const config = useContext(configContext); // 获取 config
 	const locale = useContext(LocaleContext);
 
 	const everyFn = () => {};
 
 	const subscribeFn = useCallback(() => {
 		//需要去预览前判断下弹窗。
+		// config.getStore().getData() 获取当前 store 数据
 		localStorage.setItem(PREVIEWSTATE, JSON.stringify(config.getStore().getData()));
 	}, [config]);
 
+	/**
+	 * 1. 注册了 store 的监听函数
+	 * 2. 注册了快捷键
+	 */
 	const [state] = useStoreState(config, subscribeFn, everyFn);
 
 	const [value, setValue] = useState('');
 	const [open, setOpen] = useState(false);
 
+	// 获取 store 的数据
 	const createAndDownloadFile = (fileName: string) => {
 		const aTag = document.createElement('a');
 		const res = config.getStore().getData();
@@ -62,6 +68,8 @@ export default function IndexPage() {
 		URL.revokeObjectURL(url);
 	};
 
+	// innerContainerDragUp 放到外层容器属性里
+	// innerContainerDragUp(config) -> { onMouseUp }
 	return (
 		<div {...innerContainerDragUp(config)}>
 			<div style={{ height: HeaderHeight }}>

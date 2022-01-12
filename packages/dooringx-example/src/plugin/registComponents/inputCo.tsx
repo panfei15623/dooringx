@@ -116,9 +116,10 @@ const InputTemp = (pr: InputProps) => {
 };
 
 const InputCo = new ComponentItemFactory(
-	'input',
-	'输入组件',
+	'input', // name
+	'输入组件', // display
 	{
+		// props
 		style: [
 			createPannelOptions<FormMap, 'input'>('input', {
 				receive: 'placeholder', //用于发送回的props，必传 ,跨组件传递需要指定额外字
@@ -143,6 +144,7 @@ const InputCo = new ComponentItemFactory(
 		actions: [createPannelOptions<FormMap, 'actionButton'>('actionButton', {})],
 	},
 	{
+		// initData
 		syncList: ['synckey'],
 		props: {
 			type: 'text',
@@ -154,10 +156,11 @@ const InputCo = new ComponentItemFactory(
 		width: 200,
 		height: 55,
 	},
+	// render
 	(data, context, store, config) => {
 		return <InputTemp data={data} context={context} store={store} config={config}></InputTemp>;
 	},
-	true
+	true // resize
 );
 
 export default InputCo;

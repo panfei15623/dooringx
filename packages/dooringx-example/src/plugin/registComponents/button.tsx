@@ -23,6 +23,11 @@ function ButtonTemp(pr: ComponentRenderConfigProps) {
 		return pr.config.getEventCenter();
 	}, [pr.config]);
 
+	/**
+	 * param1：render 的四个参数组成的对象
+	 * param2：注册的时机名，必须跟 id 相关，否则多个组件可能导致名称冲突
+	 * param3：时机描述
+	 */
 	useDynamicAddEventCenter(pr, `${pr.data.id}-init`, '初始渲染时机'); //注册名必须带id 约定！
 	useDynamicAddEventCenter(pr, `${pr.data.id}-click`, '点击执行时机');
 	useEffect(() => {
@@ -95,9 +100,11 @@ function ButtonTemp(pr: ComponentRenderConfigProps) {
 	);
 }
 
+// 组件需要导出一个由ComponentItemFactory生成的对象
 const MButton = new ComponentItemFactory(
-	'button',
-	'按钮',
+	'button', // name：组件注册名
+	'按钮', // display：展示
+	// props：右侧面板的配置项，键为右侧面板分类，值为配置项
 	{
 		style: [
 			createPannelOptions<FormMap, 'input'>('input', {
@@ -114,6 +121,7 @@ const MButton = new ComponentItemFactory(
 		animate: [createPannelOptions<FormMap, 'animateControl'>('animateControl', {})],
 		actions: [createPannelOptions<FormMap, 'actionButton'>('actionButton', {})],
 	},
+	// initData：配置组件初始值
 	{
 		props: {
 			text: 'yehuozhili',
@@ -143,9 +151,18 @@ const MButton = new ComponentItemFactory(
 		},
 		canDrag: true, // false就不能拖
 	},
+	/**
+	 * render
+	 * @param data
+	 * @param context 一般只有preview和edit，用来进行环境判断
+	 * @param store
+	 * @param config 可以拿到所有数据，用来制作事件时使用
+	 * @returns
+	 */
 	(data, context, store, config) => {
 		return <ButtonTemp data={data} store={store} context={context} config={config}></ButtonTemp>;
 	},
+	// resize 判断是否能缩放
 	true
 );
 

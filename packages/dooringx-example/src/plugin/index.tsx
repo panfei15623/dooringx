@@ -14,6 +14,10 @@ import { functionMap } from './functionMap';
 import { Formmodules } from './formComponentModules';
 import InputCo from './registComponents/inputCo';
 
+/**
+ * 左侧组件
+ * 支持同步导入或者异步导入
+ */
 const LeftRegistMap: LeftRegistComponentMapItem[] = [
 	{
 		type: 'basic',
@@ -21,7 +25,7 @@ const LeftRegistMap: LeftRegistComponentMapItem[] = [
 		img: 'icon-anniu',
 		imgCustom: <PlayCircleOutlined />,
 		displayName: '按钮',
-		urlFn: () => import('./registComponents/button'),
+		urlFn: () => import('./registComponents/button'), // 如果需要异步导入组件，则需要填写urlFn，需要一个返回promise的函数
 	},
 	{
 		type: 'basic',
@@ -32,12 +36,18 @@ const LeftRegistMap: LeftRegistComponentMapItem[] = [
 ];
 
 export const defaultConfig: Partial<InitConfig> = {
-	leftAllRegistMap: LeftRegistMap,
+	leftAllRegistMap: LeftRegistMap, // 左侧组件
 	leftRenderListCategory: [
+		// 左侧面板
 		{
 			type: 'basic',
 			icon: <HighlightOutlined />,
 			displayName: '基础',
+		},
+		{
+			type: 'business',
+			icon: <HighlightOutlined />,
+			displayName: '业务组件',
 		},
 		{
 			type: 'media',
@@ -47,19 +57,21 @@ export const defaultConfig: Partial<InitConfig> = {
 		{
 			type: 'xxc',
 			icon: <ContainerOutlined />,
-			custom: true,
+			custom: true, // 当custom为true时，可以使用customRender自定义渲染
 			displayName: '自定义',
 			customRender: <div>我是自定义渲染</div>,
 		},
 	],
 	initComponentCache: {
+		// 如果需要同步导入组件，则需要将组件放入配置项的initComponentCache中，这样在载入时便会注册进componentRegister里
 		input: { component: InputCo },
 	},
 	rightRenderListCategory: [
+		// 右侧面板
 		{
 			type: 'style',
 			icon: (
-				<div className='right-tab-item' style={{ width: 50, textAlign: 'center' }}>
+				<div className="right-tab-item" style={{ width: 50, textAlign: 'center' }}>
 					外观
 				</div>
 			),
@@ -67,7 +79,7 @@ export const defaultConfig: Partial<InitConfig> = {
 		{
 			type: 'animate',
 			icon: (
-				<div className='right-tab-item' style={{ width: 50, textAlign: 'center' }}>
+				<div className="right-tab-item" style={{ width: 50, textAlign: 'center' }}>
 					动画
 				</div>
 			),
@@ -75,7 +87,7 @@ export const defaultConfig: Partial<InitConfig> = {
 		{
 			type: 'fn',
 			icon: (
-				<div className='right-tab-item' style={{ width: 50, textAlign: 'center' }}>
+				<div className="right-tab-item" style={{ width: 50, textAlign: 'center' }}>
 					函数
 				</div>
 			),
@@ -83,15 +95,15 @@ export const defaultConfig: Partial<InitConfig> = {
 		{
 			type: 'actions',
 			icon: (
-				<div className='right-tab-item' style={{ width: 50, textAlign: 'center' }}>
+				<div className="right-tab-item" style={{ width: 50, textAlign: 'center' }}>
 					事件
 				</div>
 			),
 		},
 	],
-	initFunctionMap: functionMap,
-	initCommandModule: commandModules,
-	initFormComponents: Formmodules,
+	initFunctionMap: functionMap, // 函数导入做成对象置入initFunctionMap
+	initCommandModule: commandModules, // 命令对象导入到 initCommandModule
+	initFormComponents: Formmodules, // 右侧组件导入，将开发的组件配成一个对象放入initFormComponents即可
 };
 
 export default defaultConfig;

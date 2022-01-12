@@ -17,12 +17,24 @@ import 'animate.css';
 import { IntlProvider } from 'react-intl';
 import { locale } from 'dooringx-lib';
 import { localeKey } from '../../../dooringx-lib/dist/locale';
+
+/**
+ * 根据 plugin 配置生成 UserConfig 实例，其中涉及各种初始化和注册：
+ * 1. 初始化 store
+ * 2. 注册右侧面板涉及的组件
+ * 3. 注册左侧面板组件
+ * 4. 注册画布组件
+ * 5. 初始化 data
+ * 6. 初始化 event
+ * 7. 注册画布事件
+ * plugin 左/右侧面板、组件配置，事件对应的函数处理配置等
+ */
 export const config = new UserConfig(plugin);
-export const configContext = createContext<UserConfig>(config);
+export const configContext = createContext<UserConfig>(config); // 创建 context
 //config.i18n = false;
 // 自定义右键
 const contextMenuState = config.getContextMenuState();
-const unmountContextMenu = contextMenuState.unmountContextMenu;
+const unmountContextMenu = contextMenuState.unmountContextMenu; // 关闭右键菜单方法
 const commander = config.getCommanderRegister();
 const ContextMenu = () => {
 	const handleclick = () => {
@@ -35,7 +47,7 @@ const ContextMenu = () => {
 	return (
 		<div
 			style={{
-				left: contextMenuState.left,
+				left: contextMenuState.left, // 右键的位置
 				top: contextMenuState.top,
 				position: 'fixed',
 				background: 'rgb(24, 23, 23)',

@@ -14,8 +14,8 @@ import { CreateOptionsRes } from 'dooringx-lib/dist/core/components/formTypes';
 import { IBlockType } from 'dooringx-lib/dist/core/store/storetype';
 
 interface MInputProps {
-	data: CreateOptionsRes<FormMap, 'input'>;
-	current: IBlockType;
+	data: CreateOptionsRes<FormMap, 'input'>; // formMap类型
+	current: IBlockType; // 当前点击的组件
 	config: UserConfig;
 }
 
