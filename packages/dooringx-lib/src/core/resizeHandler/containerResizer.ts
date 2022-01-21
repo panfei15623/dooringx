@@ -19,12 +19,14 @@ export const containerState = {
 };
 
 export const containerResizer = {
+  // 用户按下鼠标按钮触发
 	onMousedown: (e: React.MouseEvent, config: UserConfig) => {
 		const store = config.getStore();
 		containerState.isDrag = true;
-		containerState.startY = e.clientY;
+		containerState.startY = e.clientY; // 鼠标事件相对于浏览器有效区域的位置
 		containerState.startIndex = store.getIndex();
 	},
+  // 画布缩放
 	onMouseMove: (e: React.MouseEvent, config: UserConfig) => {
 		if (containerState.isDrag) {
 			const scaleState = config.getScaleState();
@@ -42,6 +44,7 @@ export const containerResizer = {
 		}
 		controlMouseMove(e);
 	},
+  // 鼠标按键被松开时触发
 	onMouseUp: (config: UserConfig) => {
 		if (containerState.isDrag) {
 			const store = config.getStore();

@@ -42,8 +42,8 @@ function ContainerWrapper(props: PropsWithChildren<ContainerWrapperProps>) {
 				userSelect: 'none',
 				...style,
 			}}
-			{...wrapperEvent(ref, props.config)}
-			{...onWheelEvent(props.config)}
+			{...wrapperEvent(ref, props.config)} // 绑定 onMouseDown、onMouseMove 事件
+			{...onWheelEvent(props.config)} // 滚轮事件、画布缩放
 			{...rest}
 		>
 			{config.timeline && <TimeLine config={config}></TimeLine>}

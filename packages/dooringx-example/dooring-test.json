@@ -1,0 +1,169 @@
+{
+	"container": {
+		"width": 375,
+		"height": 667
+	},
+	"block": [
+		{
+			"id": "button-_LFvY0Si-c0L4rCZYAZww",
+			"name": "button",
+			"top": 65,
+			"left": 31,
+			"zIndex": 0,
+			"props": {
+				"text": "yehuozhili",
+				"sizeData": [100, 30],
+				"backgroundColor": "rgba(0,132,255,1)",
+				"lineHeight": 1,
+				"borderRadius": 0,
+				"op1": false,
+				"borderData": {
+					"borderWidth": 0,
+					"borderColor": "rgba(0,0,0,1)",
+					"borderStyle": "solid"
+				},
+				"fontData": {
+					"fontSize": 14,
+					"textDecoration": "none",
+					"fontStyle": "normal",
+					"color": "rgba(255,255,255,1)",
+					"fontWeight": "normal"
+				}
+			},
+			"resize": true,
+			"focus": true,
+			"position": "absolute",
+			"display": "block",
+			"width": 100,
+			"height": 30,
+			"syncList": [],
+			"canDrag": true,
+			"canSee": true,
+			"eventMap": {
+				"button-_LFvY0Si-c0L4rCZYAZww-init": {
+					"arr": [],
+					"displayName": "初始渲染时机",
+					"userSelect": []
+				},
+				"button-_LFvY0Si-c0L4rCZYAZww-click": {
+					"arr": [
+						{
+							"name": "打开弹窗函数",
+							"data": {
+								"弹窗名称": "modal"
+							},
+							"args": {
+								"_modal": "测试"
+							}
+						}
+					],
+					"displayName": "点击执行时机",
+					"userSelect": [
+						{
+							"uid": "UFEvinsUx7Rnq2BGhI7hX",
+							"value": "打开弹窗函数",
+							"detail": {
+								"input": {},
+								"ctx": {},
+								"dataSource": {},
+								"data": {
+									"弹窗名称": "modal"
+								},
+								"modal": {
+									"弹窗名称": "测试"
+								}
+							}
+						}
+					]
+				}
+			},
+			"functionList": [],
+			"animate": [],
+			"fixed": false,
+			"rotate": {
+				"canRotate": true,
+				"value": 0
+			}
+		}
+	],
+	"modalMap": {
+		"测试": {
+			"container": {
+				"width": 375,
+				"height": 600
+			},
+			"block": [
+				{
+					"id": "modal-mask-LnwJ6YPSUwuMCDMYQNALd",
+					"name": "modalMask",
+					"top": 0,
+					"left": 0,
+					"width": "100%",
+					"height": "100%",
+					"zIndex": 0,
+					"props": {},
+					"resize": true,
+					"focus": false,
+					"canSee": true,
+					"position": "absolute",
+					"display": "block",
+					"syncList": [],
+					"canDrag": false,
+					"eventMap": {},
+					"functionList": [],
+					"animate": [],
+					"fixed": true,
+					"rotate": {
+						"value": 0,
+						"canRotate": false
+					}
+				},
+				{
+					"id": "input-o4_a6yjCd1emquya40w54",
+					"name": "input",
+					"top": 121.5,
+					"left": 27,
+					"zIndex": 0,
+					"props": {
+						"type": "text",
+						"placeholder": "测试",
+						"warnning": "输入框不可为空",
+						"op1": false,
+						"op2": false
+					},
+					"resize": true,
+					"focus": false,
+					"position": "absolute",
+					"display": "block",
+					"width": 200,
+					"height": 55,
+					"syncList": ["synckey"],
+					"canDrag": true,
+					"canSee": true,
+					"eventMap": {},
+					"functionList": [],
+					"animate": [],
+					"fixed": false,
+					"rotate": {
+						"value": 0,
+						"canRotate": true
+					}
+				}
+			],
+			"modalMap": {},
+			"dataSource": {},
+			"globalState": {},
+			"modalConfig": {}
+		}
+	},
+	"dataSource": {
+		"defaultKey": "defaultValue"
+	},
+	"globalState": {
+		"containerColor": "rgba(255,255,255,1)",
+		"title": "dooring",
+		"bodyColor": "rgba(255,255,255,1)",
+		"script": []
+	},
+	"modalConfig": {}
+}

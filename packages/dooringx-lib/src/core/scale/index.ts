@@ -8,6 +8,7 @@
 import UserConfig from '../../config';
 import { scaleCancelFn } from './cancel';
 
+// 缩放画布
 export const onWheelEvent = (config: UserConfig) => {
 	const store = config.getStore();
 	const scale = config.getScaleState();

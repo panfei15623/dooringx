@@ -50,6 +50,8 @@ class ComponentRegister {
 		if (!this.eventMap[event]) {
 			return;
 		}
+
+    // 执行该组件对应的事件? todo
 		this.eventMap[event].forEach((v) => v());
 	}
 

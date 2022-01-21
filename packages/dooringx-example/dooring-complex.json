@@ -1,0 +1,280 @@
+{
+	"container": {
+		"width": 375,
+		"height": 600
+	},
+	"block": [
+		{
+			"id": "modal-mask-_iv4rEV4MTbb2LzMYorY9",
+			"name": "modalMask",
+			"top": 0,
+			"left": 0,
+			"width": "100%",
+			"height": "100%",
+			"zIndex": 0,
+			"props": {},
+			"resize": true,
+			"focus": false,
+			"canSee": true,
+			"position": "absolute",
+			"display": "block",
+			"syncList": [],
+			"canDrag": false,
+			"eventMap": {},
+			"functionList": [],
+			"animate": [],
+			"fixed": true,
+			"rotate": {
+				"value": 0,
+				"canRotate": false
+			}
+		},
+		{
+			"id": "input-1TYNK5UCuQFO4NJPD9vKL",
+			"name": "input",
+			"top": 57,
+			"left": 53,
+			"zIndex": 0,
+			"props": {
+				"type": "text",
+				"placeholder": "请输入",
+				"warnning": "输入框不可为空",
+				"op1": true,
+				"op2": true
+			},
+			"resize": true,
+			"focus": false,
+			"position": "absolute",
+			"display": "block",
+			"width": 200,
+			"height": 55,
+			"syncList": ["synckey"],
+			"canDrag": true,
+			"canSee": true,
+			"eventMap": {},
+			"functionList": [],
+			"animate": [],
+			"fixed": false,
+			"rotate": {
+				"value": 0,
+				"canRotate": true
+			}
+		},
+		{
+			"id": "input-EFdsSEnWxlUht6Xv3psum",
+			"name": "input",
+			"top": 127,
+			"left": 53,
+			"zIndex": 0,
+			"props": {
+				"type": "text",
+				"placeholder": "请输入",
+				"warnning": "输入框不可为空",
+				"op1": false,
+				"op2": false
+			},
+			"resize": true,
+			"focus": false,
+			"position": "absolute",
+			"display": "block",
+			"width": 200,
+			"height": 55,
+			"syncList": ["synckey"],
+			"canDrag": true,
+			"canSee": true,
+			"eventMap": {},
+			"functionList": [],
+			"animate": [],
+			"fixed": false,
+			"rotate": {
+				"value": 0,
+				"canRotate": true
+			}
+		},
+		{
+			"id": "button-whDB_2npOwdrhZnkmKY5a",
+			"name": "button",
+			"top": 305,
+			"left": 211,
+			"zIndex": 0,
+			"props": {
+				"text": "提交",
+				"sizeData": [100, 30],
+				"backgroundColor": "rgba(0,132,255,1)",
+				"lineHeight": 1,
+				"borderRadius": 0,
+				"op1": false,
+				"borderData": {
+					"borderWidth": 0,
+					"borderColor": "rgba(0,0,0,1)",
+					"borderStyle": "solid"
+				},
+				"fontData": {
+					"fontSize": 14,
+					"textDecoration": "none",
+					"fontStyle": "normal",
+					"color": "rgba(255,255,255,1)",
+					"fontWeight": "normal"
+				}
+			},
+			"resize": true,
+			"focus": true,
+			"position": "absolute",
+			"display": "block",
+			"width": 100,
+			"height": 30,
+			"syncList": [],
+			"canDrag": true,
+			"canSee": true,
+			"eventMap": {
+				"button-whDB_2npOwdrhZnkmKY5a-init": {
+					"arr": [],
+					"displayName": "初始渲染时机",
+					"userSelect": []
+				},
+				"button-whDB_2npOwdrhZnkmKY5a-click": {
+					"arr": [
+						{
+							"name": "input-1TYNK5UCuQFO4NJPD9vKL+validate-func",
+							"data": {},
+							"args": {}
+						},
+						{
+							"name": "input-1TYNK5UCuQFO4NJPD9vKL+get-input",
+							"data": {
+								"获取数据至上下文": "ctx"
+							},
+							"args": {
+								"_changeval": []
+							}
+						}
+					],
+					"displayName": "点击执行时机",
+					"userSelect": [
+						{
+							"uid": "2pdLtlt2y-m97-GgxkZ0l",
+							"value": "input-1TYNK5UCuQFO4NJPD9vKL+validate-func",
+							"detail": {
+								"input": {},
+								"ctx": {
+									"输入要获取的上下文": [" input-1TYNK5UCuQFO4NJPD9vKL"],
+									"输入要生成的上下文": ["aaaaa"]
+								},
+								"dataSource": {},
+								"data": {},
+								"modal": {}
+							}
+						},
+						{
+							"uid": "iMZqXimqLk-Syxje23YA4",
+							"value": "input-1TYNK5UCuQFO4NJPD9vKL+get-input",
+							"detail": {
+								"input": {},
+								"ctx": {
+									"获取数据至上下文": []
+								},
+								"dataSource": {},
+								"data": {
+									"获取数据至上下文": "ctx"
+								},
+								"modal": {}
+							}
+						}
+					]
+				}
+			},
+			"functionList": [],
+			"animate": [],
+			"fixed": false,
+			"rotate": {
+				"canRotate": true,
+				"value": 0
+			}
+		},
+		{
+			"id": "button-TmMjNIBTayz1uMLEdeyM6",
+			"name": "button",
+			"top": 305,
+			"left": 60,
+			"zIndex": 0,
+			"props": {
+				"text": "取消",
+				"sizeData": [100, 30],
+				"backgroundColor": "rgba(0,132,255,1)",
+				"lineHeight": 1,
+				"borderRadius": 0,
+				"op1": false,
+				"borderData": {
+					"borderWidth": 0,
+					"borderColor": "rgba(0,0,0,1)",
+					"borderStyle": "solid"
+				},
+				"fontData": {
+					"fontSize": 14,
+					"textDecoration": "none",
+					"fontStyle": "normal",
+					"color": "rgba(255,255,255,1)",
+					"fontWeight": "normal"
+				}
+			},
+			"resize": true,
+			"focus": false,
+			"position": "absolute",
+			"display": "block",
+			"width": 100,
+			"height": 30,
+			"syncList": [],
+			"canDrag": true,
+			"canSee": true,
+			"eventMap": {
+				"button-TmMjNIBTayz1uMLEdeyM6-init": {
+					"arr": [],
+					"displayName": "初始渲染时机",
+					"userSelect": []
+				},
+				"button-TmMjNIBTayz1uMLEdeyM6-click": {
+					"arr": [
+						{
+							"name": "关闭弹窗函数",
+							"data": {
+								"弹窗名称": "modal"
+							},
+							"args": {
+								"_modal": "新建项目"
+							}
+						}
+					],
+					"displayName": "点击执行时机",
+					"userSelect": [
+						{
+							"uid": "BSILSmP9f2z8HxnC5PUBi",
+							"value": "关闭弹窗函数",
+							"detail": {
+								"input": {},
+								"ctx": {},
+								"dataSource": {},
+								"data": {
+									"弹窗名称": "modal"
+								},
+								"modal": {
+									"弹窗名称": "新建项目"
+								}
+							}
+						}
+					]
+				}
+			},
+			"functionList": [],
+			"animate": [],
+			"fixed": false,
+			"rotate": {
+				"canRotate": true,
+				"value": 0
+			}
+		}
+	],
+	"modalMap": {},
+	"dataSource": {},
+	"globalState": {},
+	"modalConfig": {}
+}

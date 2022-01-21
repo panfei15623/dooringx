@@ -45,7 +45,7 @@ class Store {
 	}
 	/**
 	 *
-	 * 重置需要注册事件
+	 * 重置 store 的 storeDataList、current
 	 * @param {IStoreData[]} initData
 	 * @param {boolean} [check=false] 检查编辑弹窗状态
 	 * @memberof Store

@@ -34,11 +34,13 @@ function LeftConfig(props: LeftConfigProps) {
 
 	const [force, setForce] = useState(0);
 	useMemo(() => {
+    // 触发 left 面板更新
 		props.config.leftForceUpdate = () => {
 			setForce((v) => v + 1);
 		};
 	}, [props.config]);
 
+  // 左侧面板配置项
 	const leftMapRenderListCategory = useMemo(() => {
 		return props.config.getConfig().leftRenderListCategory;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,7 +142,7 @@ function LeftConfig(props: LeftConfigProps) {
 							<div
 								className={`${styles.coitem} yh-left-item-wrap`}
 								key={index}
-								{...dragEventResolve(v, props.config)}
+								{...dragEventResolve(v, props.config)} // 处理拖拽事件
 							>
 								<div className={`${styles.redbox} yh-left-item-img-wrap`}>
 									{v.imgCustom ? (

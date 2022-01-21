@@ -29,6 +29,8 @@ export function useStoreState(
 			config.getEventCenter().syncEventMap(store.getData(), config.getStoreChanger());
 			extraFn(); // 将 data 存在 localStorage 中，供 PREVIEWSTATE 使用
 		});
+
+    // 设置 store 的 forceUpdate，每次调用 store.forceUpdate 都执行 useStoreState，使页面重新渲染
 		store.setForceUpdate(() => forceUpdate((v) => v + 1));
 		const commandModules = config.getConfig().initCommandModule; // 获取 plugin/commands 目录下的模块
 		const commander = config.getCommanderRegister(); // 得到 config.commanderRegister
@@ -67,12 +69,11 @@ export function useStoreState(
 }
 
 /**
- *
  * 组件动态注册eventMap与eventCenter
- * @export
- * @param {ComponentRenderConfigProps} props render参数传来的
- * @param {string} eventName 同一个组件名称不能重复
- * @returns
+ * @param props render 的四个参数组成的对象
+ * @param eventName 注册的时机名，必须跟 id 相关，否则多个组件可能导致名称冲突
+ * @param displayName 时机描述
+ * @returns 
  */
 export function useDynamicAddEventCenter(
 	props: ComponentRenderConfigProps,
@@ -95,6 +96,8 @@ export function useDynamicAddEventCenter(
 					displayName,
 					userSelect: [],
 				};
+
+        // 手动更新状态eventMap
 				eventCenter.manualUpdateMap(eventName, displayName);
 			}
 		}

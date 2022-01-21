@@ -121,11 +121,12 @@ export class StoreChanger {
 		origin!.current = origin!.current + 1;
 	}
 
-	/**
-	 *
-	 * 保存现阶段store，将store替换为新modal数据
-	 * @memberof StoreChanger
-	 */
+  /**
+   * 保存现阶段store，将store替换为新modal数据
+   * @param store 
+   * @param name 弹窗名称
+   * @returns 
+   */
 	newModalMap(store: Store, name: string) {
 		const sign = this.isEdit();
 		if (sign) {
@@ -134,7 +135,7 @@ export class StoreChanger {
 				sign: 0,
 			};
 		}
-		//新建modal name不能重名，否则直接报错
+		// 新建modal name不能重名，否则直接报错
 		const sign2 = this.isInModalMap(store, name);
 		if (sign2) {
 			return {

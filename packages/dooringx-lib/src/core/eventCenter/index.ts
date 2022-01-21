@@ -102,15 +102,15 @@ export class EventCenter {
 	/**
 	 *
 	 * 手动更新状态eventMap
-	 * @param {string} name
-	 * @memberof EventCenter
+	 * @param {string} name 注册的时机名，必须跟 id 相关，否则多个组件可能导致名称冲突
+	 * @memberof EventCenter 时机描述
 	 */
 	manualUpdateMap(name: string, displayName: string, arr?: Array<EventCenterMapItem>) {
 		if (!this.eventMap[name]) {
 			this.eventMap[name] = {
-				arr: [],
+				arr: [], // 在右侧面板操作事件时赋值
 				displayName: displayName,
-				userSelect: [],
+				userSelect: [], // 在右侧面板操作事件时赋值
 			};
 		}
 		if (arr && this.eventMap[name].displayName) {
@@ -127,7 +127,7 @@ export class EventCenter {
 	/**
 	 *
 	 * 执行事件链
-	 * @param {string} name
+	 * @param {string} name 事件名
 	 * @memberof EventCenter
 	 */
 	async runEventQueue(name: string, config: UserConfig) {
@@ -139,9 +139,12 @@ export class EventCenter {
 		const arr = new EventQuene(1, config);
 		//如果组件异步加载，那么函数会过段时间载入，等同于异步函数
 		// 函数中心需要处理未找到时的异步处理情况
+    // eventList.arr 保存了该组件对应的所有操作的name、data、args
+    // name：操作名，data：配置项，args：配置信息
 		if (Array.isArray(eventList.arr)) {
+      // 依次执行事件
 			for (let i of eventList.arr) {
-				const fn = await this.functionCenter.getFunction(i.name);
+				const fn = await this.functionCenter.getFunction(i.name); // 获取fn
 				arr.take(fn, i.args, eventList, i);
 			}
 		}

@@ -68,7 +68,7 @@ export default function IndexPage() {
 		URL.revokeObjectURL(url);
 	};
 
-	// innerContainerDragUp 放到外层容器属性里
+	// innerContainerDragUp 放到外层容器属性里，事件代理
 	// innerContainerDragUp(config) -> { onMouseUp }
 	return (
 		<div {...innerContainerDragUp(config)}>

@@ -30,7 +30,7 @@ const MSwitch = (props: MSwitchProps) => {
 			</Col>
 			<Col span={16}>
 				<Switch
-					checked={props.current.props[(option as any).receive] || ''}
+					checked={props.current.props[(option as any).receive] || ''} // receive
 					onChange={(checked) => {
 						const receive = (option as any).receive;
 						const clonedata = deepCopy(store.getData());

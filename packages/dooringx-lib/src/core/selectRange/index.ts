@@ -100,6 +100,8 @@ export function selectRangeMouseUp(e: React.MouseEvent | MouseEvent, config: Use
 		let left = 0;
 		let top = 0;
 		const scaleState = config.getScaleState();
+
+    // getBoundingClientRect 获取某个元素相对于浏览器视窗的位置集合，集合中有 top、right、bottom、left 等属性
 		const { width, height } = selectData.selectDiv.getBoundingClientRect();
 		const scale = scaleState.value;
 		const wwidth = width / scale;
@@ -112,6 +114,7 @@ export function selectRangeMouseUp(e: React.MouseEvent | MouseEvent, config: Use
 			top = selectData.startY - wheight;
 		}
 		selectFocus(left, top, wwidth, wheight, config);
+    // !. TypeScript的语法，叫非空断言操作符，和?.相反，这个符号表示对象后面的属性一定不是null或undefined
 		selectData.selectDiv.parentNode!.removeChild(selectData.selectDiv);
 		selectData.selectDiv = null;
 	}

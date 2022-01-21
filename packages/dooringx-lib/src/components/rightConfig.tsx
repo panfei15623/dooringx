@@ -63,11 +63,12 @@ function RightConfig(props: PropsWithChildren<RightConfigProps>) {
 	const render = useMemo(() => {
 		return (type: string, current: IBlockType) => {
 			const fn = () => props.config.getComponentRegister().getComp(current.name);
-			const data = fn();
+			const data = fn(); // 获得焦点的组件，ComponentItemFactory 实例
 			// 这里不可能拿不到组件，因为点击的那个组件已经渲染出来了
 			if (data) {
 				const renderList = data.props[type];
 				if (renderList) {
+          // 渲染右侧面板
 					return renderList.map((v, i) => {
 						const Component = props.config.getFormRegister().formMap[v.type];
 						if (!Component) {
@@ -77,7 +78,7 @@ function RightConfig(props: PropsWithChildren<RightConfigProps>) {
 						return (
 							<Component
 								key={i}
-								data={v as CreateOptionsRes<any, any>}
+								data={v as CreateOptionsRes<any, any>} // data.props[type] 的元素
 								current={current}
 								config={props.config}
 							></Component>

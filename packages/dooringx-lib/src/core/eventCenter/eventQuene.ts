@@ -30,6 +30,13 @@ export class EventQuene {
 		this.context = context;
 		this.config = config;
 	}
+  /**
+   * take
+   * @param task fn，该操作对应的 function
+   * @param args args：配置信息
+   * @param eventList 该事件名对应的所有函数
+   * @param iname 保存了该操作的的name、data、args
+   */
 	take(
 		task: FunctionCenterFunction,
 		args: Record<string, any>,
@@ -42,8 +49,10 @@ export class EventQuene {
 	) {
 		if (this.available > 0) {
 			this.available--;
+      // 执行 functionMap 中的 fn
 			task(this.context, this.leave.bind(this), this.config, args, eventList, iname);
 		} else {
+      // 下一个，需要排队，按顺序执行
 			this.waiters.push({ fn: task, args: args, eventList, iname });
 		}
 	}

@@ -42,7 +42,7 @@ export function MarklineY(props: any) {
 }
 
 export function NormalMarkLineRender(props: { config: UserConfig; iframe: boolean }) {
-	const lines = marklineCalRender(props.config, props.iframe);
+	const lines = marklineCalRender(props.config, props.iframe); // 画对齐线
 	const render = useMemo(() => {
 		return (
 			<>

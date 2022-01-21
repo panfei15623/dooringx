@@ -36,7 +36,7 @@ function ActionButton(props: ActionButtonProps) {
 
 	const [search, setSearch] = useState<EventCenterUserSelect[]>([]);
 	const functionCenter = props.config.getEventCenter().getFunctionCenter();
-	const functionConfig = functionCenter.getConfigMap();
+	const functionConfig = functionCenter.getConfigMap(); // 获取 configMap
 	const functionMap = functionCenter.getFunctionMap();
 	const functionNameMap = functionCenter.getNameMap();
 	const isEdit = props.config.getStoreChanger().isEdit();
@@ -251,6 +251,7 @@ function ActionButton(props: ActionButtonProps) {
 				<Col span={8}>标识ID</Col>
 				<Col span={16}>{props.current.id}</Col>
 			</Row>
+			{/* currentOption = [`${pr.data.id}-init`, `${pr.data.id}-click`] */}
 			{currentOption.map((j, i) => {
 				return (
 					<Row
@@ -297,31 +298,46 @@ function ActionButton(props: ActionButtonProps) {
 					const store = props.config.getStore();
 					const cloneData: IStoreData = deepCopy(store.getData());
 					const arr = search.map((v) => {
-						//   name: string; // 函数名
+						// name: string; // 选择的函数名
 						// args: Record<string, any>; // 输入参数都会变成对象传来，
-						//  data: Record<string, FunctionDataType>; // 用户选的种类 键是每个配置项名
-						const name = v.value; //函数名
-						const options: FunctionConfigType = functionConfig[name];
+						// data: Record<string, FunctionDataType>; // 用户选的种类 键是每个配置项名
+						// v = {
+						//   uid: createUid(),
+						//   value: '', // 事件名
+						//   detail: {
+						//     input: {},
+						//     ctx: {},
+						//     dataSource: {},
+						//     data: { [config.name]:  dataSource|ctx|input|modal },
+						//     modal: { [config.name]: model名称 }, // data[config.name] 的值是 modal 时，设置 该属性
+						//   }
+						// }
+						const name = v.value; // 选的函数名，如：打开弹窗函数
+						const options: FunctionConfigType = functionConfig[name]; // configMap[name]
 						const dataMap = v.detail['data'];
 						const combine = options.map((jkk) => {
-							const select: string = dataMap[jkk.name]; // datasource / input / modal
+							const select: string = dataMap[jkk.name]; // datasource / input / modal / ctx
 							let val = {};
 							if (select) {
-								const value = v.detail[select]; //{name:array<>}
+								const value = v.detail[select]; // select 对应的值
 								const receive = jkk.options.receive;
-								val = { [receive]: value[jkk.name] }; //这里不能换算，否则修改data后值不会更新
+								val = { [receive]: value[jkk.name] }; // { [receive]: v.detail[select][config.name] }
 							}
 
-							const choose = { [jkk.name]: select };
+							const choose = { [jkk.name]: select }; // { [config.name]: select }
 							return {
 								...v,
 								choose,
 								val,
 							};
 						});
+
+						// 将所有的 val 合在一起
 						const combineVal = combine.reduce((prev, next) => {
 							return Object.assign(prev, next.val);
 						}, {});
+
+						// 将所有的 choose 合在一起
 						const combineChoose = combine.reduce((prev, next) => {
 							return Object.assign(prev, next.choose);
 						}, {});
@@ -381,7 +397,7 @@ function ActionButton(props: ActionButtonProps) {
 					<div>
 						{search.map((w, i) => {
 							const current = search.find((v) => v.uid === w.uid);
-							const options: FunctionConfigType | undefined = functionConfig[current?.value || ''];
+							const options: FunctionConfigType | undefined = functionConfig[current?.value || '']; // 获取到 configMap[name] 值
 							return (
 								<div key={w.uid}>
 									<Row align="middle">
@@ -431,15 +447,22 @@ function ActionButton(props: ActionButtonProps) {
 											</Button>
 										</Col>
 									</Row>
-									<div
-									//[{data: [""]
-									///   name: "改变文本数据源"
-									//options: {receive: "_changeval"}}]
-									>
+									<div>
+										{/* options = [
+                    {
+                      name: '弹窗名称',
+                      data: ['modal'],
+                      options: {
+                        receive: '_modal',
+                        multi: false,
+                      },
+                    },
+                  ] */}
+										{/* options 是 config */}
 										{options &&
 											options.map((c) => {
 												if (c.data.length === 0) {
-													return <div key={c.name}></div>;
+													return <div key={c.name}></div>; // config.name
 												}
 												return (
 													<Row key={c.name} style={{ margin: '10px 0' }}>

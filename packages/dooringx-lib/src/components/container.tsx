@@ -67,8 +67,8 @@ function Container(props: PropsWithChildren<ContainerProps>) {
 									...editContainerStyle,
 								}}
 								{...(props.context === 'edit' ? containerDragResolve(props.config) : null)}
-								{...(props.context === 'edit' ? innerContainerDrag(props.config) : null)}
-								{...(props.context === 'edit' ? containerFocusRemove(props.config) : null)}
+								{...(props.context === 'edit' ? innerContainerDrag(props.config) : null)} // onMouseMove
+								{...(props.context === 'edit' ? containerFocusRemove(props.config) : null)} // onMouseDown
 							>
 								{props.context === 'edit' && (
 									<NormalMarkLineRender config={props.config} iframe={false}></NormalMarkLineRender>

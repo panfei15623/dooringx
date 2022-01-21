@@ -33,9 +33,9 @@ function Blocks(props: PropsWithChildren<BlockProps>) {
 
 	useEffect(() => {
 		const fn = () => props.config.getComponentRegister().getComp(props.data.name);
-		const data = fn();
+		const data = fn(); // 注册的组件
 		let unregist = () => {};
-		let newdata = { ...props.data };
+		let newdata = { ...props.data }; // block 数据
 		if (props.context === 'preview') {
 			newdata = {
 				...props.data,
@@ -47,6 +47,7 @@ function Blocks(props: PropsWithChildren<BlockProps>) {
 		}
 
 		if (data) {
+      // data.render 的结果是 block 对应的 React 组件
 			setState(data.render(newdata, props.context, props.config.getStore(), props.config));
 		} else {
 			const callback = () => {

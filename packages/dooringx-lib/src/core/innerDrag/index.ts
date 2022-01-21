@@ -130,8 +130,12 @@ export const innerContainerDrag = function (config: UserConfig) {
 		onMouseMove,
 	};
 };
+
+// 放到外层容器属性里，看起来像事件代理
 export const innerContainerDragUp = function (config: UserConfig) {
 	const store = config.getStore();
+
+  // 鼠标按键被松开时触发
 	const onMouseUp = (e: React.MouseEvent) => {
 		// e.preventDefault(); 这个会导致无法取消选中
 		marklineState.cache = null;
@@ -140,8 +144,8 @@ export const innerContainerDragUp = function (config: UserConfig) {
 		marklineState.sortRight = null;
 		marklineState.sortBottom = null;
 		iframeWrapperMove(config);
-		wrapperMoveMouseUp(config);
-		selectRangeMouseUp(e, config);
+		wrapperMoveMouseUp(config); // 移动？
+		selectRangeMouseUp(e, config); // 选择？
 		if (innerDragState.ref && innerDragState.ref.current) {
 			innerDragState.ref.current.style.willChange = 'auto';
 		}

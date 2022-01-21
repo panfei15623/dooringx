@@ -188,7 +188,7 @@ export const defaultConfig: InitConfig = {
 	initFunctionMap: {
 		打开弹窗函数: {
 			fn: (_ctx, next, config, args) => {
-				const modalName = args['_modal'];
+				const modalName = args['_modal']; // 配置的弹窗名称
 				const storeData = config.getStore().getData();
 				createModal(modalName, storeData, config);
 				next();
@@ -411,7 +411,7 @@ export class UserConfig {
     // constructor 中处理过了，这里有处理一遍，目前看没变化
 		this.eventCenter = new EventCenter({}, this.initConfig.initFunctionMap);
 		
-    // 注册画布事件
+    // 收集画布所有事件到 eventMap 中
 		this.eventCenter.syncEventMap(this.store.getData(), this.storeChanger);
 	}
 
@@ -590,9 +590,11 @@ export class UserConfig {
 			!(this.componentCache as Record<string, CacheComponentValueType>)[name] &&
 			this.asyncComponentUrlMap[name]
 		) {
-			const chunk = await this.asyncComponentUrlMap[name]();
-			const chunkDefault = chunk.default;
+			const chunk = await this.asyncComponentUrlMap[name](); // 加载的组件
+			const chunkDefault = chunk.default; // 导出的组件
 			this.componentRegister.register(chunkDefault);
+
+      // 加入缓存
 			(this.componentCache as Record<string, CacheComponentValueType>)[name] = {
 				component: chunkDefault,
 			};

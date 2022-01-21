@@ -46,6 +46,7 @@ export const wrapperEvent = (ref: RefObject<HTMLDivElement>, config: UserConfig)
 				}
 			}
 		},
+    // 画布移动
 		onMouseMove: (e: React.MouseEvent) => {
 			//e.preventDefault();
 			if (wrapperMoveState.isDrag) {

@@ -33,6 +33,7 @@ const InputTemp = (pr: InputProps) => {
 		let unregist = () => {};
 		if (props.op1) {
 			const functionCenter = eventCenter.getFunctionCenter();
+			// 右侧面板的函数 tab，注册到 functionMap
 			unregist = functionCenter.register(
 				`${pr.data.id}+validate-func`,
 				async (_ctx, next, _config, _args: any, _eventList, _iname) => {
@@ -66,13 +67,15 @@ const InputTemp = (pr: InputProps) => {
 		if (props.op2) {
 			const functionCenter = eventCenter.getFunctionCenter();
 			unregist = functionCenter.register(
-				`${pr.data.id}+get-input`,
+				`${pr.data.id}+get-input`, // id
 				async (ctx, next, _config, args: any, _eventList, _iname) => {
+					// fn
 					const key = args['_changeval'][0];
 					ctx[key] = value;
 					next();
 				},
 				[
+					// config
 					{
 						name: '获取数据至上下文',
 						data: ['ctx'],
@@ -82,7 +85,7 @@ const InputTemp = (pr: InputProps) => {
 						},
 					},
 				],
-				`${pr.data.id}+获取输入数据`
+				`${pr.data.id}+获取输入数据` // name
 			);
 		}
 		return () => {
@@ -124,7 +127,7 @@ const InputCo = new ComponentItemFactory(
 			createPannelOptions<FormMap, 'input'>('input', {
 				receive: 'placeholder', //用于发送回的props，必传 ,跨组件传递需要指定额外字
 				label: '文本',
-			}),
+			}), // { type: 'input', option: { receive, label} }
 			createPannelOptions<FormMap, 'input'>('input', {
 				receive: 'warnning', //用于发送回的props，必传 ,跨组件传递需要指定额外字
 				label: '验证消息',

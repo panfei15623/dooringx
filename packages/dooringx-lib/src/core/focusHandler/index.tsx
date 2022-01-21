@@ -14,13 +14,18 @@ import UserConfig from '../../config';
 
 function resolveRemove(config: UserConfig) {
 	const store = config.getStore();
-	const focusState = config.getFocusState();
+	const focusState = config.getFocusState(); // 存储 focus 的block
 	const clonedata = deepCopy(store.getData());
+
+  // 将所有 block focus 设置成 false
 	const newBlock = clonedata.block.map((v: IBlockType) => {
 		v.focus = false;
 		return v;
 	});
+
+  // 清空
 	focusState.blocks = [];
+
 	store.setData({ ...clonedata, block: newBlock });
 	unmountContextMenu();
 }
@@ -33,7 +38,7 @@ export function containerFocusRemove(config: UserConfig) {
 	const onMouseDown = (e: React.MouseEvent) => {
 		resolveRemove(config);
 		if (!innerDragState.item) {
-			selectRangeMouseDown(e, config);
+			selectRangeMouseDown(e, config); // 选择区域
 		}
 	};
 	return {

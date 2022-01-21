@@ -17,6 +17,7 @@ import {
 import { FormMap } from '../formTypes';
 import { ComponentRenderConfigProps } from 'dooringx-lib/dist/core/components/componentItem';
 
+// 预览的时候渲染这个组件
 function ButtonTemp(pr: ComponentRenderConfigProps) {
 	const props = pr.data.props;
 	const eventCenter = useMemo(() => {
@@ -24,9 +25,10 @@ function ButtonTemp(pr: ComponentRenderConfigProps) {
 	}, [pr.config]);
 
 	/**
-	 * param1：render 的四个参数组成的对象
-	 * param2：注册的时机名，必须跟 id 相关，否则多个组件可能导致名称冲突
-	 * param3：时机描述
+	 * 组件动态注册 eventMap 到 eventCenter
+	 * props：render 的四个参数组成的对象
+	 * eventName：注册的时机名，必须跟 id 相关，否则多个组件可能导致名称冲突
+	 * displayName：时机描述
 	 */
 	useDynamicAddEventCenter(pr, `${pr.data.id}-init`, '初始渲染时机'); //注册名必须带id 约定！
 	useDynamicAddEventCenter(pr, `${pr.data.id}-click`, '点击执行时机');
@@ -44,11 +46,12 @@ function ButtonTemp(pr: ComponentRenderConfigProps) {
 		if (op1) {
 			const functionCenter = eventCenter.getFunctionCenter();
 			unregist = functionCenter.register(
-				`${pr.data.id}+changeText`,
+				`${pr.data.id}+changeText`, // id
 				async (ctx, next, config, args: any, _eventList, iname) => {
+					// fn
 					const userSelect = iname.data;
 					const ctxVal = changeUserValue(
-						userSelect['改变文本数据源'],
+						userSelect['改变文本数据源'], // dataSource
 						args,
 						'_changeval',
 						config,
@@ -59,6 +62,7 @@ function ButtonTemp(pr: ComponentRenderConfigProps) {
 					next();
 				},
 				[
+					// config
 					{
 						name: '改变文本数据源',
 						data: ['ctx', 'input', 'dataSource'],
@@ -68,7 +72,7 @@ function ButtonTemp(pr: ComponentRenderConfigProps) {
 						},
 					},
 				],
-				`${pr.data.id}+改变文本函数`
+				`${pr.data.id}+改变文本函数` // name
 			);
 		}
 		return () => {
@@ -153,7 +157,7 @@ const MButton = new ComponentItemFactory(
 	},
 	/**
 	 * render
-	 * @param data
+	 * @param data block 数据
 	 * @param context 一般只有preview和edit，用来进行环境判断
 	 * @param store
 	 * @param config 可以拿到所有数据，用来制作事件时使用
